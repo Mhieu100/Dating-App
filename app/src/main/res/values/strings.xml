@@ -8,4 +8,8 @@
     <string name="home">Home</string>
     <string name="chat">Chat</string>
     <string name="profile_page">Profile-Page</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="todo">TODO</string>
+    <string name="textview">TextView</string>
 </resources>
