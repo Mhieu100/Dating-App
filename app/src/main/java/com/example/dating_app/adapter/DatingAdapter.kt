@@ -17,12 +17,12 @@ class DatingAdapter(val context: Context, val list: ArrayList<UserModel>) : Recy
 
 
         return DatingViewHolder(ItemUserLayoutBinding.inflate(LayoutInflater.from(context)
-            , parent, true))
+            , parent, false))
     }
 
     override fun onBindViewHolder(holder: DatingViewHolder, position: Int) {
-        holder.binding.textView8.text = list[position].name
-        holder.binding.textView7.text = list[position].email
+        holder.binding.tvName.text = list[position].name
+        holder.binding.tvEmail.text = list[position].email
 
         Glide.with(context).load(list[position].image).into(holder.binding.userImage)
     }
