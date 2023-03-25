@@ -77,6 +77,7 @@ class RegisterActivity : AppCompatActivity() {
             name = binding.userName.text.toString(),
             email = binding.userEmail.text.toString(),
             city = binding.userCity.text.toString(),
+            number = FirebaseAuth.getInstance().currentUser!!.phoneNumber.toString()
         )
 
         FirebaseDatabase.getInstance().getReference("users")
