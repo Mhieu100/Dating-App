@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sendOTP(number: String) {
-        var callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
 
@@ -102,7 +102,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkUserExist(number: String) {
 
-        FirebaseDatabase.getInstance().getReference("users").child(number)
+        FirebaseDatabase.getInstance().getReference("users").child("+84$number")
             .addValueEventListener(object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if(snapshot.exists()){

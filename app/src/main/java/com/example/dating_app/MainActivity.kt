@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener{
             super.onOptionsItemSelected(item)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
 
         if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
