@@ -1,11 +1,13 @@
 package com.example.dating_app.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.dating_app.activity.MessageActivity
 import com.example.dating_app.databinding.FragmentProfileBinding
 import com.example.dating_app.databinding.UserItemLayoutBinding
 import com.example.dating_app.model.UserModel
@@ -45,6 +47,10 @@ class MessageUserAdapter(val context : Context, val list : ArrayList<String>, va
 
             })
 
-
+        holder.itemView.setOnClickListener{
+            val inter = Intent(context, MessageActivity::class.java)
+            inter.putExtra("chat_id", chatKey[position])
+            context.startActivity(inter)
+        }
     }
 }

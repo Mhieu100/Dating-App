@@ -31,4 +31,15 @@
         app:layout_constraintHorizontal_bias="0.995"
         app:layout_constraintStart_toEndOf="@+id/textInputLayout"
         app:srcCompat="@drawable/send" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView2"
+        android:layout_width="409dp"
+        android:layout_height="686dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/layout_receiver_message"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
