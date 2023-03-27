@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:cardCornerRadius="20dp">
+    app:cardCornerRadius="20dp"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,8 +18,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="TODO" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -36,16 +36,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="7dp"
-                app:srcCompat="@drawable/cancel"
-                android:contentDescription="TODO" />
+                app:srcCompat="@drawable/cancel" />
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/chat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/chatlove"
-                android:contentDescription="TODO" />
+                app:srcCompat="@drawable/chatlove" />
 
             <ImageView
                 android:id="@+id/imageView7"
@@ -53,8 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="3dp"
-                app:srcCompat="@drawable/heartcl"
-                android:contentDescription="TODO" />
+                app:srcCompat="@drawable/heartcl" />
         </LinearLayout>
 
         <TextView
@@ -75,7 +72,6 @@
             android:id="@+id/tvEmail"
             android:layout_width="309dp"
             android:layout_height="37dp"
-            android:text="TextView"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
