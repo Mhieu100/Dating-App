@@ -22,7 +22,7 @@ class MessageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentMessageBinding.inflate(layoutInflater)
 
@@ -33,20 +33,26 @@ class MessageFragment : Fragment() {
     }
 
     private fun getData() {
-        var list = arrayListOf<String>()
-        var newlist = arrayListOf<String>()
+
         var currentId = FirebaseAuth.getInstance().currentUser!!.phoneNumber
         FirebaseDatabase.getInstance().getReference("chats")
             .addValueEventListener(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    val list = arrayListOf<String>()
+                    val newlist = arrayListOf<String>()
                     for(data in snapshot.children) {
                         if(data.key!!.contains(currentId!!)) {
                             list.add(data.key!!.replace(currentId!!, ""))
                             newlist.add(data.key!!)
                         }
                     }
+                    try {
+                        binding.recyclerView.adapter =
+                            MessageUserAdapter(requireContext(), list, newlist)
+                    }catch (e : Exception) {
 
-                    binding.recyclerView.adapter = MessageUserAdapter(requireContext(), list, newlist)
+                    }
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {

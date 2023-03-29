@@ -50,6 +50,7 @@ class MessageUserAdapter(val context : Context, val list : ArrayList<String>, va
         holder.itemView.setOnClickListener{
             val inter = Intent(context, MessageActivity::class.java)
             inter.putExtra("chat_id", chatKey[position])
+            inter.putExtra("userId", list[position])
             context.startActivity(inter)
         }
     }
