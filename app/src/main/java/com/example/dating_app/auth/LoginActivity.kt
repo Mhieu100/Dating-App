@@ -115,6 +115,8 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
+
+
                     Toast.makeText(this@LoginActivity, error.message, Toast.LENGTH_SHORT).show()
                 }
 
