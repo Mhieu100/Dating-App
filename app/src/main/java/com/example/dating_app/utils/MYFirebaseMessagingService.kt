@@ -16,7 +16,7 @@ class MYFirebaseMessagingService : FirebaseMessagingService() {
 
     private val channelId = "Chat-Dating-App"
 
-    override fun  OnMessageReceived(message : RemoteMessage) {
+    override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
         val inter = Intent(this, MainActivity::class.java)
         inter.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
