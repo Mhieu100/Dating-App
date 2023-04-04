@@ -4,13 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.dating_app.MainActivity
-import com.example.dating_app.R
-import com.example.dating_app.databinding.ActivityLoginBinding
 import com.example.dating_app.databinding.ActivityRegisterBinding
 import com.example.dating_app.model.UserModel
 import com.google.android.gms.tasks.OnCompleteListener
@@ -18,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
-import java.net.URI
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -59,7 +54,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun uploadImage() {
-        var storageRef = FirebaseStorage.getInstance().getReference("profile")
+        val storageRef = FirebaseStorage.getInstance().getReference("profile")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("profile.jpg")
 
 

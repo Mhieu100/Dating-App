@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import com.example.dating_app.MainActivity
 import com.example.dating_app.databinding.ActivityLoginBinding
 import com.google.firebase.FirebaseException
@@ -16,7 +15,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.util.concurrent.TimeUnit
-import android.R
+
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding

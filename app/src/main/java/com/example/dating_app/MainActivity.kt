@@ -16,7 +16,7 @@ import com.google.android.material.navigation.NavigationView.OnNavigationItemSel
 class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener{
 
     private lateinit var binding : ActivityMainBinding
-    var actionBarDrawerToggle : ActionBarDrawerToggle ? = null
+    private var actionBarDrawerToggle : ActionBarDrawerToggle ? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
