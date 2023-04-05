@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.dating_app.R
+
 import com.example.dating_app.adapter.MessageUserAdapter
 import com.example.dating_app.databinding.FragmentMessageBinding
-import com.example.dating_app.ui.DatingFragment.Companion.list
+
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -34,7 +34,7 @@ class MessageFragment : Fragment() {
 
     private fun getData() {
 
-        var currentId = FirebaseAuth.getInstance().currentUser!!.phoneNumber
+        val currentId = FirebaseAuth.getInstance().currentUser!!.phoneNumber
         FirebaseDatabase.getInstance().getReference("chats")
             .addValueEventListener(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -42,14 +42,14 @@ class MessageFragment : Fragment() {
                     val newlist = arrayListOf<String>()
                     for(data in snapshot.children) {
                         if(data.key!!.contains(currentId!!)) {
-                            list.add(data.key!!.replace(currentId!!, ""))
+                            list.add(data.key!!.replace(currentId, ""))
                             newlist.add(data.key!!)
                         }
                     }
                     try {
                         binding.recyclerView.adapter =
                             MessageUserAdapter(requireContext(), list, newlist)
-                    }catch (e : Exception) {
+                    }catch (_: Exception) {
 
                     }
 

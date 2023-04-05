@@ -13,4 +13,10 @@
     <string name="todo">TODO</string>
     <string name="textview">TextView</string>
     <string name="textview1">TextView</string>
+    <string name="please_product_all_details_of_you">Please product all details of you</string>
+    <string name="let_s_know_you">Let\'s Know You</string>
+    <string name="city">City</string>
+    <string name="name">Name</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>
