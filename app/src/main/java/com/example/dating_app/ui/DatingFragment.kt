@@ -87,8 +87,8 @@ class DatingFragment : Fragment() {
             .child(FirebaseAuth.getInstance().currentUser!!.phoneNumber!!).get()
             .addOnSuccessListener {
                 if (it.exists()) {
-                    val data = it.getValue(UserModel::class.java)
-                    genderYou = data!!.gender.toString()
+                    val data1 = it.getValue(UserModel::class.java)
+                    genderYou = data1!!.gender.toString()
                 }
             }
 
@@ -100,9 +100,9 @@ class DatingFragment : Fragment() {
                         list = arrayListOf()
                         for (data in snapshot.children) {
                             val model = data.getValue(UserModel::class.java)
-                            if (model!!.number != FirebaseAuth.getInstance().currentUser!!.phoneNumber) {
-                               if(model.gender == "Male" && genderYou == "Female") list!!.add(model)
-                                if(model.gender == "Female" && genderYou == "Male") list!!.add(model)
+if (  genderYou != model!!.gender && model.number != FirebaseAuth.getInstance().currentUser!!.phoneNumber) {
+                                list!!.add(model)
+                            }
                             }
                         }
                         list!!.shuffle()
