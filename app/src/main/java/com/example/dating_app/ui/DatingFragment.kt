@@ -100,9 +100,8 @@ class DatingFragment : Fragment() {
                         list = arrayListOf()
                         for (data in snapshot.children) {
                             val model = data.getValue(UserModel::class.java)
-                            if (model!!.number != FirebaseAuth.getInstance().currentUser!!.phoneNumber) {
-                               if(model.gender == "Male" && genderYou == "Female") list!!.add(model)
-                                if(model.gender == "Female" && genderYou == "Male") list!!.add(model)
+                            if (model!!.number != FirebaseAuth.getInstance().currentUser!!.phoneNumber &&  genderYou != model.gender) {
+                                list!!.add(model)
                             }
                         }
                         list!!.shuffle()
