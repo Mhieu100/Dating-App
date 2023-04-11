@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
+import com.bumptech.glide.Glide
+import com.example.dating_app.R
 import com.example.dating_app.adapter.DatingAdapter
 import com.example.dating_app.databinding.FragmentDatingBinding
 import com.example.dating_app.model.UserModel
@@ -23,7 +25,7 @@ import com.yuyakaido.android.cardstackview.Direction
 
 class DatingFragment : Fragment() {
 
-    private lateinit var binding : FragmentDatingBinding
+    private lateinit var binding: FragmentDatingBinding
     private lateinit var manager: CardStackLayoutManager
 
     override fun onCreateView(
@@ -37,14 +39,15 @@ class DatingFragment : Fragment() {
     }
 
     private fun init() {
-        manager = CardStackLayoutManager(requireContext(), object : CardStackListener{
+        manager = CardStackLayoutManager(requireContext(), object : CardStackListener {
             override fun onCardDragging(direction: Direction?, ratio: Float) {
 
             }
 
             override fun onCardSwiped(direction: Direction?) {
-                if(manager.topPosition == list!!.size) {
-                    Toast.makeText(requireContext(), "This is last card", Toast.LENGTH_SHORT).show()
+                if (manager.topPosition == list!!.size) {
+//                    Toast.makeText(requireContext(), "This is last card", Toast.LENGTH_SHORT).show()
+                    getData()
                 }
             }
 
@@ -73,21 +76,33 @@ class DatingFragment : Fragment() {
         manager.setDirections(Direction.HORIZONTAL)
     }
 
+
     companion object {
-        var list : java.util.ArrayList<UserModel>? = null
+        var list: java.util.ArrayList<UserModel>? = null
     }
 
     private fun getData() {
+        var genderYou : String = ""
         FirebaseDatabase.getInstance().getReference("users")
-            .addValueEventListener(object : ValueEventListener{
+            .child(FirebaseAuth.getInstance().currentUser!!.phoneNumber!!).get()
+            .addOnSuccessListener {
+                if (it.exists()) {
+                    val data = it.getValue(UserModel::class.java)
+                    genderYou = data!!.gender.toString()
+                }
+            }
+
+        FirebaseDatabase.getInstance().getReference("users")
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    Log.d("SHUBH", "onDataChange: ${snapshot.toString()}")
-                    if(snapshot.exists()) {
+                    Log.d("SHUBHA", "onDataChange: ${snapshot.toString()}")
+                    if (snapshot.exists()) {
                         list = arrayListOf()
                         for (data in snapshot.children) {
                             val model = data.getValue(UserModel::class.java)
-                            if(model!!.number != FirebaseAuth.getInstance().currentUser!!.phoneNumber) {
-                                list!!.add(model)
+                            if (model!!.number != FirebaseAuth.getInstance().currentUser!!.phoneNumber) {
+                               if(model.gender == "Male" && genderYou == "Female") list!!.add(model)
+                                if(model.gender == "Female" && genderYou == "Male") list!!.add(model)
                             }
                         }
                         list!!.shuffle()
@@ -96,15 +111,14 @@ class DatingFragment : Fragment() {
                         binding.cardStackView.itemAnimator = DefaultItemAnimator()
                         binding.cardStackView.adapter = DatingAdapter(requireContext(), list!!)
                     } else {
-                        Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(requireContext(), error.message, Toast.LENGTH_SHORT).show()
                 }
-
             })
     }
-
 }

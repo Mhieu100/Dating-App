@@ -29,7 +29,7 @@ class DatingAdapter(val context: Context, val list: ArrayList<UserModel>) : Recy
         Glide.with(context).load(list[position].image).into(holder.binding.userImage)
 
         holder.binding.chat.setOnClickListener {
-            var inter = Intent(context, MessageActivity::class.java)
+            val inter = Intent(context, MessageActivity::class.java)
             inter.putExtra("userId", list[position].number)
             context.startActivity(inter)
         }

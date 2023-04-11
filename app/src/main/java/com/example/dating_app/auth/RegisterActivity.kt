@@ -4,9 +4,11 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.dating_app.MainActivity
+import com.example.dating_app.R
 import com.example.dating_app.databinding.ActivityRegisterBinding
 import com.example.dating_app.model.UserModel
 import com.google.android.gms.tasks.OnCompleteListener
@@ -21,7 +23,6 @@ class RegisterActivity : AppCompatActivity() {
     private var imageUri : Uri? = null
     private var selectImage = registerForActivityResult(ActivityResultContracts.GetContent()){
         imageUri = it
-
         binding.userImage.setImageURI(imageUri)
     }
 
@@ -77,6 +78,20 @@ class RegisterActivity : AppCompatActivity() {
             }
             // Get new FCM registration token
             val token = task.result
+//            var genderSelect : String? = ""
+//            if(binding.male.isChecked) {
+//                genderSelect = binding.male.text.toString()
+//            } else if(binding.female.isChecked) {
+//                genderSelect = binding.female.text.toString()
+//            }
+            val radio = findViewById<RadioGroup>(R.id.radio)
+
+
+            val radioId = radio.checkedRadioButtonId
+            val radioBtn = findViewById<RadioButton>(radioId)
+
+            val genderSelect = radioBtn.text.toString()
+
 
             val data = UserModel(
                 image = imageUrl.toString(),
@@ -84,7 +99,9 @@ class RegisterActivity : AppCompatActivity() {
                 email = binding.userEmail.text.toString(),
                 city = binding.userCity.text.toString(),
                 number = FirebaseAuth.getInstance().currentUser!!.phoneNumber.toString(),
-                fcmToken = token
+                fcmToken = token,
+                gender = genderSelect
+
             )
 
             FirebaseDatabase.getInstance().getReference("users")
