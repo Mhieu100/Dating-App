@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.example.dating_app.adapter.DatingAdapter
@@ -17,25 +19,24 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.yuyakaido.android.cardstackview.CardStackLayoutManager
-import com.yuyakaido.android.cardstackview.CardStackListener
-import com.yuyakaido.android.cardstackview.Direction
+import com.yuyakaido.android.cardstackview.*
 
 class DatingFragment : Fragment() {
 
     private lateinit var binding: FragmentDatingBinding
     private lateinit var manager: CardStackLayoutManager
-
+    private var toDating : String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentDatingBinding.inflate(layoutInflater)
-
         getData()
+
         return binding.root
     }
 
     private fun init() {
+        val cardStackView = binding.cardStackView
         manager = CardStackLayoutManager(requireContext(), object : CardStackListener {
             override fun onCardDragging(direction: Direction?, ratio: Float) {
 
@@ -43,7 +44,7 @@ class DatingFragment : Fragment() {
 
             override fun onCardSwiped(direction: Direction?) {
                 if (manager.topPosition == list!!.size) {
-//                    Toast.makeText(requireContext(), "This is last card", Toast.LENGTH_SHORT).show()
+                    // Toast.makeText(requireContext(), "This is last card", Toast.LENGTH_SHORT).show()
                     getData()
                 }
             }
@@ -64,7 +65,41 @@ class DatingFragment : Fragment() {
 
             }
 
+
         })
+
+        val skip = binding.button
+        skip.setOnClickListener {
+            val setting = SwipeAnimationSetting.Builder()
+                .setDirection(Direction.Left)
+                .setDuration(Duration.Normal.duration)
+                .setInterpolator(AccelerateInterpolator())
+                .build()
+            manager.setSwipeAnimationSetting(setting)
+            cardStackView.swipe()
+        }
+
+        val rewind = binding.button2
+        rewind.setOnClickListener {
+            val setting = RewindAnimationSetting.Builder()
+                .setDirection(Direction.Bottom)
+                .setDuration(Duration.Normal.duration)
+                .setInterpolator(DecelerateInterpolator())
+                .build()
+            manager.setRewindAnimationSetting(setting)
+            cardStackView.rewind()
+        }
+
+        val like = binding.button3
+        like.setOnClickListener {
+            val setting = SwipeAnimationSetting.Builder()
+                .setDirection(Direction.Right)
+                .setDuration(Duration.Normal.duration)
+                .setInterpolator(AccelerateInterpolator())
+                .build()
+            manager.setSwipeAnimationSetting(setting)
+            cardStackView.swipe()
+        }
 
         manager.setVisibleCount(3)
         manager.setTranslationInterval(0.6f)
@@ -72,7 +107,6 @@ class DatingFragment : Fragment() {
         manager.setMaxDegree(20.0f)
         manager.setDirections(Direction.HORIZONTAL)
     }
-
 
     companion object {
         var list: java.util.ArrayList<UserModel>? = null

@@ -2,6 +2,7 @@ package com.example.dating_app.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 
 import com.example.dating_app.adapter.MessageAdpater
@@ -111,11 +112,7 @@ class MessageActivity : AppCompatActivity() {
         reference.child(reference.push().key!!).setValue(map).addOnCompleteListener {
             if(it.isSuccessful){
                 binding.youMessage.text = null
-
-               
-
                 sendNotification(msg)
-
                 Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Some thing went wrong", Toast.LENGTH_SHORT).show()
@@ -149,7 +146,6 @@ class MessageActivity : AppCompatActivity() {
                         })
                     }
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(this@MessageActivity, error.message, Toast.LENGTH_SHORT).show()
                 }

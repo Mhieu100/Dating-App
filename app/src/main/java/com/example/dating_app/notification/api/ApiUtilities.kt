@@ -2,7 +2,6 @@ package com.example.dating_app.notification.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 object ApiUtilities {
 
     fun getInstance() : ApiInterface {

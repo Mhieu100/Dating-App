@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.dating_app.MainActivity
 import com.example.dating_app.databinding.ActivityLoginBinding
 import com.google.firebase.FirebaseException
@@ -15,6 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.util.concurrent.TimeUnit
+import com.example.dating_app.R
 
 
 class LoginActivity : AppCompatActivity() {
@@ -22,6 +24,7 @@ class LoginActivity : AppCompatActivity() {
 
     var auth = FirebaseAuth.getInstance()
     private var verificationId : String? = null
+    private lateinit var dialog : AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-
+        dialog = AlertDialog.Builder(this).setView(R.layout.loading_layout).create()
 
         binding.sendOTP.setOnClickListener {
             if(binding.userNumber.text!!.isEmpty()) {
@@ -50,16 +53,16 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun vertifyOTP(otp: String) {
+        dialog.show()
         val credential = PhoneAuthProvider.getCredential(verificationId!!, otp)
         signInWithPhoneAuthCredential(credential)
     }
 
     private fun sendOTP(number: String) {
+        dialog.show()
         val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-
-
                 signInWithPhoneAuthCredential(credential)
             }
 
@@ -72,7 +75,7 @@ class LoginActivity : AppCompatActivity() {
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
                 this@LoginActivity.verificationId = verificationId
-
+                dialog.dismiss()
                 binding.cardViewNumber.visibility = GONE
                 binding.cardviewOtp.visibility = VISIBLE
             }
@@ -91,9 +94,8 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     checkUserExist(binding.userNumber.text.toString())
-
-
                 } else {
+                    dialog.dismiss()
                     Toast.makeText(this, task.exception!!.message, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -105,6 +107,7 @@ class LoginActivity : AppCompatActivity() {
             .addValueEventListener(object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if(snapshot.exists()){
+                        dialog.dismiss()
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         finish()
                     } else {
@@ -114,8 +117,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-
-
+                    dialog.dismiss()
                     Toast.makeText(this@LoginActivity, error.message, Toast.LENGTH_SHORT).show()
                 }
 
