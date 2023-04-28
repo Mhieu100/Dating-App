@@ -147,6 +147,7 @@
                 android:drawableTop="@drawable/baseline_female_24"
                 android:fontFamily="@font/poppins_medium"
                 android:padding="5dp"
+                android:text="female"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
