@@ -1,10 +1,11 @@
 package com.example.dating_app.auth
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import java.util.*
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.dating_app.MainActivity
@@ -16,9 +17,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
+import java.text.SimpleDateFormat
 
 class RegisterActivity : AppCompatActivity() {
 
+    private lateinit var editTextDate: EditText
     private lateinit var binding: ActivityRegisterBinding
     private var imageUri : Uri? = null
     private var selectImage = registerForActivityResult(ActivityResultContracts.GetContent()){
@@ -38,6 +41,32 @@ class RegisterActivity : AppCompatActivity() {
         binding.saveData.setOnClickListener {
             validateData()
         }
+
+        editTextDate = binding.birthday
+        editTextDate.setOnClickListener {
+            showDatePickerDialog()
+        }
+    }
+
+    private fun showDatePickerDialog() {
+        val currentDate = Calendar.getInstance()
+        val year = currentDate.get(Calendar.YEAR)
+        val month = currentDate.get(Calendar.MONTH)
+        val dayOfMonth = currentDate.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, year, monthOfYear, dayOfMonth ->
+                val calendar = Calendar.getInstance()
+                calendar.set(year, monthOfYear, dayOfMonth)
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                editTextDate.setText(dateFormat.format(calendar.time))
+            },
+            year,
+            month,
+            dayOfMonth
+        )
+        datePickerDialog.show()
     }
 
     private fun validateData() {
@@ -57,8 +86,6 @@ class RegisterActivity : AppCompatActivity() {
     private fun uploadImage() {
         val storageRef = FirebaseStorage.getInstance().getReference("profile")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("profile.jpg")
-
-
         storageRef.putFile(imageUri!!).addOnSuccessListener {
             storageRef.downloadUrl.addOnSuccessListener{
                 storageData(it)
@@ -102,7 +129,7 @@ class RegisterActivity : AppCompatActivity() {
                     if (it.isSuccessful) {
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
-                        Toast.makeText(this, "User register successfull", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "User register successfully", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(this, it.exception!!.message, Toast.LENGTH_SHORT).show()
                     }

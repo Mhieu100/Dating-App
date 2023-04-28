@@ -21,4 +21,14 @@
     <string name="female">Female</string>
     <string name="loading">Loading...</string>
     <string name="skip">Skip</string>
+    <string name="enter_your_number">Enter Your Number :</string>
+    <string name="image">Image</string>
+    <string name="phone">Phone</string>
+    <string name="ex_388335845">ex : 388335845</string>
+    <string name="title">Find Your First Meta Matches</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="enter_your_otp">Enter Your OTP :</string>
+    <string name="save_profile">Save Profile</string>
+    <string name="tem_condition">Have read and accepted the terms.</string>
+    <string name="email">Email</string>
 </resources>

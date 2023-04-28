@@ -3,47 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:gravity="end"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal|end"
+    android:paddingTop="8dp"
+    android:paddingRight="8dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="280dp"
+        android:layout_height="60dp"
         android:layout_gravity="end"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="7dp">
+        app:cardCornerRadius="10dp"
+        app:cardElevation="20dp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:layout_gravity="center_vertical">
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:background="#E13771">
 
 
             <TextView
                 android:id="@+id/messageText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Hello, I am dev"
-                android:textColor="#020202"
+                android:layout_width="203dp"
+                android:layout_height="43dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Hello, I am dev . I become to Front End"
+                android:textColor="#FFFFFF"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/senderImage"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.862" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/senderImage"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/profilecl"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-    
-
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

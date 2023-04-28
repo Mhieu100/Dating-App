@@ -2,15 +2,15 @@
     <!-- Base application theme. -->
     <style name="Theme.DatingApp" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryVariant">@color/primary</item>
+        <item name="colorPrimary">#E91E63</item>
+        <item name="colorPrimaryVariant">#E91E63</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/primary</item>
-        <item name="colorSecondaryVariant">@color/primary</item>
+        <item name="colorSecondary">#E91E63</item>
+        <item name="colorSecondaryVariant">#E91E63</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">#E91E63</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

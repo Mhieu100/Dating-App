@@ -31,7 +31,6 @@ class DatingFragment : Fragment() {
     ): View {
         binding = FragmentDatingBinding.inflate(layoutInflater)
         getData()
-
         return binding.root
     }
 
@@ -68,7 +67,7 @@ class DatingFragment : Fragment() {
 
         })
 
-        val skip = binding.button
+        val skip = binding.close
         skip.setOnClickListener {
             val setting = SwipeAnimationSetting.Builder()
                 .setDirection(Direction.Left)
@@ -79,7 +78,7 @@ class DatingFragment : Fragment() {
             cardStackView.swipe()
         }
 
-        val rewind = binding.button2
+        val rewind = binding.reload
         rewind.setOnClickListener {
             val setting = RewindAnimationSetting.Builder()
                 .setDirection(Direction.Bottom)
@@ -90,7 +89,7 @@ class DatingFragment : Fragment() {
             cardStackView.rewind()
         }
 
-        val like = binding.button3
+        val like = binding.like
         like.setOnClickListener {
             val setting = SwipeAnimationSetting.Builder()
                 .setDirection(Direction.Right)

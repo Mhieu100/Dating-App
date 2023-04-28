@@ -24,6 +24,8 @@ class DatingAdapter(val context: Context, private val list: ArrayList<UserModel>
 
         holder.binding.tvName.text = list[position].name
         holder.binding.tvEmail.text = list[position].email
+        holder.binding.tvAddress.text = list[position].city
+
 
         Glide.with(context).load(list[position].image).into(holder.binding.userImage)
 

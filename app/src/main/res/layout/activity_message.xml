@@ -6,40 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".activity.MessageActivity">
 
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
-        android:layout_width="321dp"
-        android:layout_height="74dp"
+        android:layout_width="322dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="Message"
+        app:boxBackgroundColor="#ffffff"
+        app:boxBackgroundMode="outline"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:startIconDrawable="@drawable/baseline_message_24"
+        app:startIconTint="#E91E63">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/youMessage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:hint="Message" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
         android:id="@+id/sendMess"
-        android:layout_width="87dp"
-        android:layout_height="74dp"
-        android:padding="10dp"
+        android:layout_width="64dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.995"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textInputLayout"
-        app:srcCompat="@drawable/send" />
+        app:srcCompat="@drawable/baseline_send_24" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
-        android:layout_width="409dp"
-        android:layout_height="686dp"
+        android:layout_width="0dp"
+        android:layout_height="625dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/layout_receiver_message"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/layout_receiver_message" />
 </androidx.constraintlayout.widget.ConstraintLayout>

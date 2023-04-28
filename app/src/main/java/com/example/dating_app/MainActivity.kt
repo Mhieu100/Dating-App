@@ -8,15 +8,18 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.dating_app.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 
+
 class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener{
 
     private lateinit var binding : ActivityMainBinding
     private var actionBarDrawerToggle : ActionBarDrawerToggle ? = null
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +36,8 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener{
         binding.navigationView.setNavigationItemSelectedListener(this)
 
         val navController = findNavController(R.id.fragment)
+        NavigationUI.setupWithNavController(binding.bottomBar, navController)
 
-        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -74,3 +77,5 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener{
             super.onBackPressed()
     }
 }
+
+
