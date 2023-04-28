@@ -106,7 +106,7 @@ class RegisterActivity : AppCompatActivity() {
             // Get new FCM registration token
             val token = task.result
 
-            val radio = findViewById<RadioGroup>(R.id.radio)
+            val radio = binding.radio
             val radioId = radio.checkedRadioButtonId
             val radioBtn = findViewById<RadioButton>(radioId)
             val genderSelect = radioBtn.text.toString()
