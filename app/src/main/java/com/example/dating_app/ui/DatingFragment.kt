@@ -1,6 +1,8 @@
 package com.example.dating_app.ui
 
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +14,8 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.example.dating_app.adapter.DatingAdapter
+import com.example.dating_app.auth.LoginActivity
+import com.example.dating_app.auth.RegisterActivity
 import com.example.dating_app.databinding.FragmentDatingBinding
 import com.example.dating_app.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
@@ -29,21 +33,25 @@ class DatingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDatingBinding.inflate(layoutInflater)
+        binding = FragmentDatingBinding.inflate(inflater, container, false)
         getData()
         return binding.root
     }
 
+    override fun onAttach(context: Context) {
+        if (isAdded) {
+            super.onAttach(context)
+        }
+    }
+
     private fun init() {
         val cardStackView = binding.cardStackView
-        manager = CardStackLayoutManager(requireContext(), object : CardStackListener {
+        manager = CardStackLayoutManager(context, object : CardStackListener {
             override fun onCardDragging(direction: Direction?, ratio: Float) {
 
             }
-
             override fun onCardSwiped(direction: Direction?) {
                 if (manager.topPosition == list!!.size) {
-                    // Toast.makeText(requireContext(), "This is last card", Toast.LENGTH_SHORT).show()
                     getData()
                 }
             }
@@ -137,15 +145,14 @@ class DatingFragment : Fragment() {
                     } else {
                         Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT)
                             .show()
+
                     }
                     list!!.shuffle()
                     init()
                     binding.cardStackView.layoutManager = manager
                     binding.cardStackView.itemAnimator = DefaultItemAnimator()
-                    binding.cardStackView.adapter = DatingAdapter(requireContext(), list!!)
-
+                    binding.cardStackView.adapter = DatingAdapter(context!!, list!!)
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(requireContext(), error.message, Toast.LENGTH_SHORT).show()
                 }

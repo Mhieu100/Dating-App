@@ -3,8 +3,10 @@ package com.example.dating_app.auth
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
+import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import java.util.*
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,16 +14,20 @@ import com.example.dating_app.MainActivity
 import com.example.dating_app.R
 import com.example.dating_app.databinding.ActivityRegisterBinding
 import com.example.dating_app.model.UserModel
+import com.example.dating_app.utils.Config
+import com.example.dating_app.utils.Config.hideDialog
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var editTextDate: EditText
+    private var year_birth_day: Int = 0
     private lateinit var binding: ActivityRegisterBinding
     private var imageUri : Uri? = null
     private var selectImage = registerForActivityResult(ActivityResultContracts.GetContent()){
@@ -61,12 +67,15 @@ class RegisterActivity : AppCompatActivity() {
                 calendar.set(year, monthOfYear, dayOfMonth)
                 val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 editTextDate.setText(dateFormat.format(calendar.time))
+                year_birth_day = calendar.get(Calendar.YEAR)
             },
             year,
             month,
             dayOfMonth
         )
         datePickerDialog.show()
+
+
     }
 
     private fun validateData() {
@@ -84,15 +93,18 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun uploadImage() {
+        Config.showDialog(this)
         val storageRef = FirebaseStorage.getInstance().getReference("profile")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("profile.jpg")
         storageRef.putFile(imageUri!!).addOnSuccessListener {
             storageRef.downloadUrl.addOnSuccessListener{
                 storageData(it)
             }.addOnFailureListener{
+                hideDialog()
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }
         }.addOnFailureListener{
+            hideDialog()
             Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
         }
     }
@@ -110,8 +122,8 @@ class RegisterActivity : AppCompatActivity() {
             val radioId = radio.checkedRadioButtonId
             val radioBtn = findViewById<RadioButton>(radioId)
             val genderSelect = radioBtn.text.toString()
-
-
+            val currentYear = LocalDate.now().year
+            val ageofme = currentYear - year_birth_day
             val data = UserModel(
                 image = imageUrl.toString(),
                 name = binding.userName.text.toString(),
@@ -119,16 +131,20 @@ class RegisterActivity : AppCompatActivity() {
                 city = binding.userCity.text.toString(),
                 number = FirebaseAuth.getInstance().currentUser!!.phoneNumber.toString(),
                 fcmToken = token,
-                gender = genderSelect
+                gender = genderSelect,
+                birthday = binding.birthday.text.toString(),
 
+                age = ageofme.toString()
             )
 
             FirebaseDatabase.getInstance().getReference("users")
                 .child(FirebaseAuth.getInstance().currentUser!!.phoneNumber!!)
                 .setValue(data).addOnCompleteListener {
+                    hideDialog()
                     if (it.isSuccessful) {
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
+
+                            startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
+                            finish()
                         Toast.makeText(this, "User register successfully", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(this, it.exception!!.message, Toast.LENGTH_SHORT).show()

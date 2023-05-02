@@ -31,4 +31,6 @@
     <string name="save_profile">Save Profile</string>
     <string name="tem_condition">Have read and accepted the terms.</string>
     <string name="email">Email</string>
+    <string name="todo_1">TODO</string>
+    <string name="chat_1">Chat</string>
 </resources>

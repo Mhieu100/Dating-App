@@ -60,7 +60,9 @@ class ProfileFragment : Fragment() {
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(requireContext(), LoginActivity::class.java))
             requireActivity().finish()
+
         }
+
         binding.editProfile.setOnClickListener{
             validateData()
         }
@@ -106,7 +108,7 @@ class ProfileFragment : Fragment() {
                 .child(FirebaseAuth.getInstance().currentUser!!.phoneNumber!!)
                 .setValue(data).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        Toast.makeText(requireContext(), "User register successfull", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "User update successfully", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(requireContext(), it.exception!!.message, Toast.LENGTH_SHORT).show()
                     }
@@ -155,7 +157,7 @@ class ProfileFragment : Fragment() {
                 .child(FirebaseAuth.getInstance().currentUser!!.phoneNumber!!)
                 .setValue(data).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        Toast.makeText(requireContext(), "User register successfull", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "User update successfully", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(requireContext(), it.exception!!.message, Toast.LENGTH_SHORT).show()
                     }

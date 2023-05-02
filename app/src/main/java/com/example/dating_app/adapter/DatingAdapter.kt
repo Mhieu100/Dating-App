@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dating_app.activity.MessageActivity
 import com.example.dating_app.databinding.ItemUserLayoutBinding
+import com.example.dating_app.model.MessageModel
 import com.example.dating_app.model.UserModel
 import java.util.ArrayList
 
@@ -25,6 +26,7 @@ class DatingAdapter(val context: Context, private val list: ArrayList<UserModel>
         holder.binding.tvName.text = list[position].name
         holder.binding.tvEmail.text = list[position].email
         holder.binding.tvAddress.text = list[position].city
+        holder.binding.tvAge.text = list[position].age
 
 
         Glide.with(context).load(list[position].image).into(holder.binding.userImage)

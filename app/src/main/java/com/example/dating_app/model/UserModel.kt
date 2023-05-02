@@ -6,10 +6,8 @@ data class UserModel(
     val email : String? = "",
     val city: String? = "",
     val gender: String? = "",
-    val relationship : String? = "",
     val fcmToken : String? = "",
-    val star: String? = "",
     val image: String? = "",
+    val birthday: String? = "",
     val age : String? = "",
-    val status: String? = ""
 )

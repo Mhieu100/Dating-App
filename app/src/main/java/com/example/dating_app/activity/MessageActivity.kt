@@ -36,7 +36,6 @@ class MessageActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 //        getData(intent.getStringExtra("chat_id"))
-        verifyChatId()
 
         binding.sendMess.setOnClickListener{
             if(binding.youMessage.text!!.isEmpty()) {
@@ -45,6 +44,7 @@ class MessageActivity : AppCompatActivity() {
                 storeData(binding.youMessage.text.toString())
             }
         }
+        verifyChatId()
     }
 
     private var senderId : String? = null
@@ -111,9 +111,10 @@ class MessageActivity : AppCompatActivity() {
 
         reference.child(reference.push().key!!).setValue(map).addOnCompleteListener {
             if(it.isSuccessful){
-                binding.youMessage.text = null
                 sendNotification(msg)
                 Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show()
+                verifyChatId()
+                binding.youMessage.text = null
             } else {
                 Toast.makeText(this, "Some thing went wrong", Toast.LENGTH_SHORT).show()
             }
